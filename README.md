@@ -2,7 +2,7 @@
 
 ### About
 
-Inspired by [this thread](https://www.reddit.com/r/Netgate/comments/mxjawo/sg2100_led_light_too_bright/) on r/PFSENSE, these are some simple control scripts to turn LEDs on/off to increase [WAF](https://en.wikipedia.org/wiki/Wife_acceptance_factor). Adjust as desired, the `day` script below will apply a dim green color to the leftmost LED. You can play with the brightness by adjusting `duty` (0-255) and RGB values by replicating the `gpioctl` command for `/dev/gpioc2` 6,7,8 (R,G,B).
+Inspired by [this thread](https://www.reddit.com/r/Netgate/comments/mxjawo/sg2100_led_light_too_bright/) on r/Netgate, these are some simple control scripts to turn LEDs on/off to increase [WAF](https://en.wikipedia.org/wiki/Wife_acceptance_factor). Adjust as desired, the `day` script below will apply a dim green color to the leftmost LED. You can play with the brightness by adjusting `duty` (0-255) and RGB values by replicating the `gpioctl` command for `/dev/gpioc2` 6,7,8 (R,G,B).
 
 ### Setup
 
