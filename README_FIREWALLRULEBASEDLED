@@ -1,0 +1,42 @@
+Drifting off into dream land ....
+
+It's 11pm and someone turns on a gaming system, you know this individual has a test or maybe a soccer game tomorrow, all the sudden your firewall'a state established LED turn on and glows red.
+
+I sprang from my bed to see what was the matter. Away to the TV I flew like a flash, tore open the door, and went with dash. When, what to my wondering eyes should appear, 
+the little one again with game controller in hand. Now little one you stand with a solemn face... go to bed ! Go to bed! Go back to bed now!"
+
+Reality is:
+You can also make the LED change to red based on firewall rules when they are live, take for example when running the following command inside of shell
+
+pfctl -vvsr
+
+This displays all the rule IDs, the rule I want to use for my system is 79 it is a gaming system. What I want to happen is the led change to on when that game system has an active state.
+
+pfctl -vvss will display all active states
+
+I want to check only on rule 79 so we grep it
+
+pfctl -vvss | grep ', rule 79'
+
+So now that I know this works and it matches the system I need
+
+I go into the fireall GUI and creat a file mine is /root/deviceonline
+
+add the following code
+
+#!/bin/sh
+pfctl -vvss | grep ', rule 79' >/dev/null
+res=$?
+if [ $res = 0 ]; then
+  sysctl -q dev.gpio.2.led.2.pwm=1
+  gpioctl -f /dev/gpioc2 6 duty 1 >/dev/null
+fi
+
+
+after chmod it 
+
+chmod +x /root/deviceonline
+
+and add a chron job to run when needed..
+
+When this rule goes active the LED will change state to red
